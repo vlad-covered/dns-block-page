@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Access Blocked</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 50px;
+      background-color: #f8f9fa;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 { color: #d9534f; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>🚫 Site Blocked</h1>
+    <p>This website has been blocked by your organization.</p>
+    <p><strong>Domain:</strong> <span id="domain"></span></p>
+    <p><strong>Category:</strong> <span id="category"></span></p>
+
+    <p>If you believe this is an error, contact IT.</p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("domain").innerText = params.get("domain");
+    document.getElementById("category").innerText = params.get("category");
+  </script>
+</body>
+</html>

@@ -1,40 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Access Blocked</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
-      font-family: Arial;
-      text-align: center;
-      padding: 50px;
-      background-color: #f8f9fa;
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f9;
+      color: #333;
     }
-    .box {
+
+    .header {
+      background: #1f2937;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header img {
+      height: 40px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
       background: white;
-      padding: 30px;
-      border-radius: 10px;
-      display: inline-block;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      text-align: center;
     }
-    h1 { color: #d9534f; }
+
+    .status {
+      display: inline-block;
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .details {
+      margin: 25px 0;
+      text-align: left;
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .details strong {
+      display: inline-block;
+      width: 100px;
+      color: #6b7280;
+    }
+
+    .actions {
+      margin-top: 25px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      margin: 5px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .logo-center {
+      margin-bottom: 20px;
+    }
   </style>
 </head>
-<body>
-  <div class="box">
-    <img src="https://www.coveredconnections.com/img/frontend/logo.svg" width="150"><br>
-    <h1>Site Blocked</h1>
-    <p>This website has been blocked by your organization.</p>
-    <p><strong>Domain:</strong> <span id="domain"></span></p>
-    <p><strong>Category:</strong> <span id="category"></span></p>
 
-    <p>If you believe this is an error, contact IT.</p>
-    <a href="mailto:itops@coveredconnections.com">Request Access</a>
+<body>
+
+  <div class="header">
+    <img src="https://www.coveredconnections.com/img/frontend/logo.svg">
+    <div>Security Gateway</div>
+  </div>
+
+  <div class="container">
+
+    <div class="logo-center">
+      <img src="https://www.coveredconnections.com/img/frontend/logo.svg" width="120">
+    </div>
+
+    <div class="status">🚫 Access Blocked</div>
+
+    <h1>Website Restricted</h1>
+    <p>This request has been blocked in accordance with your organization's security policies.</p>
+
+    <div class="details">
+      <p><strong>Domain:</strong> <span id="domain">Loading...</span></p>
+      <p><strong>Category:</strong> <span id="category">Loading...</span></p>
+      <p><strong>Date:</strong> <span id="date"></span></p>
+    </div>
+
+    <div class="actions">
+      <a id="requestLink" class="btn btn-primary">Request Access</a>
+      <a href="#" onclick="history.back()" class="btn btn-secondary">Go Back</a>
+    </div>
+
+    <div class="footer">
+      If you believe this was blocked in error, please contact your IT department.<br>
+      © 2026 Covered Connections
+    </div>
+
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    document.getElementById("domain").innerText = params.get("domain");
-    document.getElementById("category").innerText = params.get("category");
+
+    const domain = params.get("domain") || "Unknown";
+    const category = params.get("category") || "Uncategorized";
+
+    document.getElementById("domain").innerText = domain;
+    document.getElementById("category").innerText = category;
+
+    // Date/time
+    document.getElementById("date").innerText =
+      new Date().toLocaleString();
+
+    // Dynamic mailto link
+    const email = "itops@coveredconnections.com";
+    const subject = encodeURIComponent("Access Request: " + domain);
+    const body = encodeURIComponent(
+      "Requesting access to:\n\nDomain: " + domain +
+      "\nCategory: " + category
+    );
+
+    document.getElementById("requestLink").href =
+      `mailto:${email}?subject=${subject}&body=${body}`;
   </script>
+
 </body>
 </html>

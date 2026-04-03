@@ -26,9 +26,6 @@
       background: white;
       padding: 6px 14px;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
     .logo-box img {
@@ -38,7 +35,6 @@
     .header-title {
       color: #d1d5db;
       font-size: 13px;
-      letter-spacing: 0.5px;
     }
 
     .container {
@@ -51,58 +47,34 @@
       box-shadow:
         0 10px 25px rgba(0,0,0,0.08),
         0 4px 10px rgba(0,0,0,0.04);
-      animation: fadeIn 0.4s ease;
     }
 
     .logo-center img {
       width: 120px;
       margin-bottom: 20px;
-      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
     }
 
     .status {
       display: inline-block;
-      background: linear-gradient(to right, #fee2e2, #fecaca);
+      background: #fee2e2;
       color: #991b1b;
       padding: 8px 18px;
       border-radius: 999px;
       font-weight: 600;
       margin-bottom: 20px;
-      font-size: 14px;
     }
 
     h1 {
       margin-bottom: 10px;
-      font-size: 28px;
-      font-weight: 600;
     }
 
     p {
       color: #4b5563;
     }
 
-    .details {
-      margin: 25px 0;
-      text-align: center;
-      background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
-      padding: 20px;
-      border-radius: 10px;
-      font-size: 14px;
-      border: 1px solid #e5e7eb;
-    }
-
-    .details p {
-      margin: 10px 0;
-    }
-
-    .details strong {
-      display: inline;
-      color: #6b7280;
-      margin-right: 6px;
-    }
-
+    /* ACTIONS FIRST */
     .actions {
-      margin-top: 30px;
+      margin: 20px 0 10px 0;
     }
 
     .btn {
@@ -112,18 +84,11 @@
       border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.2s ease;
     }
 
     .btn-primary {
-      background: linear-gradient(to right, #2563eb, #1d4ed8);
+      background: #2563eb;
       color: white;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
     }
 
     .btn-secondary {
@@ -131,14 +96,10 @@
       color: #111827;
     }
 
-    .btn-secondary:hover {
-      background: #d1d5db;
-    }
-
-    /* NEW: Contact box */
+    /* CONTACT JUST UNDER BUTTONS */
     .contact {
-      margin-top: 25px;
-      padding: 15px;
+      margin: 10px 0 20px 0;
+      padding: 12px;
       background: #f9fafb;
       border: 1px solid #e5e7eb;
       border-radius: 10px;
@@ -148,29 +109,31 @@
     .contact a {
       color: #2563eb;
       text-decoration: none;
-      font-weight: 500;
     }
 
-    .contact a:hover {
-      text-decoration: underline;
+    /* DETAILS LAST */
+    .details {
+      margin-top: 15px;
+      text-align: center;
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .details p {
+      margin: 10px 0;
+    }
+
+    .details strong {
+      color: #6b7280;
+      margin-right: 6px;
     }
 
     .footer {
       margin-top: 35px;
       font-size: 12px;
       color: #9ca3af;
-      line-height: 1.6;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
   </style>
 </head>
@@ -195,27 +158,25 @@
     <h1>Website Restricted</h1>
     <p>This request has been blocked in accordance with your organization's security policies.</p>
 
+    <!-- ACTIONS MOVED UP -->
+    <div class="actions">
+      <a id="requestLink" class="btn btn-primary">Request Access</a>
+      <a href="#" onclick="history.back()" class="btn btn-secondary">Go Back</a>
+    </div>
+
+    <!-- CONTACT MOVED UP -->
+    <div class="contact">
+      📧 <a id="emailLink"></a> |
+      📞 <a href="tel:+14085551234">(408) 555-1234</a>
+    </div>
+
+    <!-- DETAILS BELOW -->
     <div class="details">
       <p><strong>Domain:</strong> <span id="domain">Loading...</span></p>
       <p><strong>Category:</strong> <span id="category">Loading...</span></p>
       <p><strong>IP Address:</strong> <span id="ip">Loading...</span></p>
       <p><strong>Policy:</strong> <span id="policy">Loading...</span></p>
       <p><strong>Date:</strong> <span id="date"></span></p>
-    </div>
-
-    <div class="actions">
-      <a id="requestLink" class="btn btn-primary">Request Access</a>
-      <a href="#" onclick="history.back()" class="btn btn-secondary">Go Back</a>
-    </div>
-
-    <!-- NEW: Contact Section -->
-    <div class="contact">
-      <p><strong>Contact IT Support</strong></p>
-      <p>
-        📧 <a id="emailLink"></a><br>
-        📞 <a href="tel:+14085551234">(408) 555-1234</a>
-      </p>
-      <p style="margin-top:8px;">If urgent, please call instead of emailing.</p>
     </div>
 
     <div class="footer">
@@ -255,14 +216,11 @@
     document.getElementById("policy").innerText = policy;
     document.getElementById("date").innerText = new Date().toLocaleString();
 
-    // Email config
     const email = "itops@coveredconnections.com";
 
-    // Populate visible email link
     document.getElementById("emailLink").innerText = email;
     document.getElementById("emailLink").href = `mailto:${email}`;
 
-    // Request button mailto
     const subject = encodeURIComponent("Access Request: " + domain);
 
     const body = encodeURIComponent(
